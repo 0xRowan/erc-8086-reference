@@ -133,7 +133,6 @@ erc-8086-reference/
 
 - **EIP Discussion**: [ethereum-magicians.org/t/erc-8086-privacy-token](https://ethereum-magicians.org/t/erc-8086-privacy-token/26623)
 - **Testnet App**: [testnative.zkprotocol.xyz](https://testnative.zkprotocol.xyz/)
-- **Whitepaper**: [docs/whitepaper.md](./docs/whitepaper.md)
 
 ## Security Considerations
 
