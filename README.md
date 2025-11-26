@@ -38,13 +38,13 @@ The reference implementation is deployed and verified on **Base Sepolia**. Anyon
 
 | Contract | Address | Basescan |
 |----------|---------|----------|
-| **PrivacyTokenFactory** | `0x8303A804fa17f40a4725D1b4d9aF9CB63244289c` | [View](https://sepolia.basescan.org/address/0x8303A804fa17f40a4725D1b4d9aF9CB63244289c#code) |
-| **PrivacyToken (Implementation)** | `0xB329Dc91f458350a970Fe998e3322Efb08dDA7d1` | [View](https://sepolia.basescan.org/address/0xB329Dc91f458350a970Fe998e3322Efb08dDA7d1#code) |
-| MintVerifier | `0x59B96075Dd61e182f73F181259fB86ee5154F6c9` | [View](https://sepolia.basescan.org/address/0x59B96075Dd61e182f73F181259fB86ee5154F6c9#code) |
-| MintRolloverVerifier | `0x1CAEB20665C98D17cCAE542382f4113b02b75ffe` | [View](https://sepolia.basescan.org/address/0x1CAEB20665C98D17cCAE542382f4113b02b75ffe#code) |
-| ActiveTransferVerifier | `0xB3D901e4498654e518F7cf386FBA16be62C3d481` | [View](https://sepolia.basescan.org/address/0xB3D901e4498654e518F7cf386FBA16be62C3d481#code) |
-| FinalizedTransferVerifier | `0xF878D3edF4F39f6B813cC12A83FcE4725B06Bb47` | [View](https://sepolia.basescan.org/address/0xF878D3edF4F39f6B813cC12A83FcE4725B06Bb47#code) |
-| RolloverTransferVerifier | `0xdBfb58cc0275cBD38dB1e0e0b36E619934f6c0Cb` | [View](https://sepolia.basescan.org/address/0xdBfb58cc0275cBD38dB1e0e0b36E619934f6c0Cb#code) |
+| **PrivacyTokenFactory** | `0x04df6DbAe3BAe8bC91ef3b285d0666d36dda24af` | [View](https://sepolia.basescan.org/address/0x04df6DbAe3BAe8bC91ef3b285d0666d36dda24af#code) |
+| **PrivacyToken (Implementation)** | `0xa025070b46a38d5793F491097A6aae1A6109000c` | [View](https://sepolia.basescan.org/address/0xa025070b46a38d5793F491097A6aae1A6109000c#code) |
+| MintVerifier | `0x1C9260008DA7a12dF2DE2E562dC72b877f4B9a4b` | [View](https://sepolia.basescan.org/address/0x1C9260008DA7a12dF2DE2E562dC72b877f4B9a4b#code) |
+| MintRolloverVerifier | `0x9423767D08eF34CEC1F1aD384e2884dd24c68f5B` | [View](https://sepolia.basescan.org/address/0x9423767D08eF34CEC1F1aD384e2884dd24c68f5B#code) |
+| ActiveTransferVerifier | `0x14834a1b1E67977e4ec9a33fc84e58851E21c4Aa` | [View](https://sepolia.basescan.org/address/0x14834a1b1E67977e4ec9a33fc84e58851E21c4Aa#code) |
+| FinalizedTransferVerifier | `0x1b7c464ed02af392a44CE7881081d1fb1D15b970` | [View](https://sepolia.basescan.org/address/0x1b7c464ed02af392a44CE7881081d1fb1D15b970#code) |
+| RolloverTransferVerifier | `0x4dd4D44f99Afb3AE4F4e8C03BAdA2Ff84E75f9Cb` | [View](https://sepolia.basescan.org/address/0x4dd4D44f99Afb3AE4F4e8C03BAdA2Ff84E75f9Cb#code) |
 
 **Network**: Base Sepolia (Chain ID: 84532)
 

@@ -11,8 +11,8 @@ The easiest way to interact with the protocol is through the web interface:
 ## Contract Addresses (Base Sepolia)
 
 ```
-Factory:                    0x8303A804fa17f40a4725D1b4d9aF9CB63244289c
-PrivacyToken Implementation: 0xB329Dc91f458350a970Fe998e3322Efb08dDA7d1
+Factory:                    0x04df6DbAe3BAe8bC91ef3b285d0666d36dda24af
+PrivacyToken Implementation: 0xa025070b46a38d5793F491097A6aae1A6109000c
 ```
 
 ## Reading Contract State
@@ -35,7 +35,7 @@ const factoryABI = [
 ];
 
 const factory = new ethers.Contract(
-  '0x8303A804fa17f40a4725D1b4d9aF9CB63244289c',
+  '0x04df6DbAe3BAe8bC91ef3b285d0666d36dda24af',
   factoryABI,
   provider
 );
@@ -189,10 +189,10 @@ console.log('Nullifier spent:', spent);
 
 All contracts are verified. Click to view source code:
 
-- [Factory](https://sepolia.basescan.org/address/0x8303A804fa17f40a4725D1b4d9aF9CB63244289c#code)
-- [PrivacyToken Implementation](https://sepolia.basescan.org/address/0xB329Dc91f458350a970Fe998e3322Efb08dDA7d1#code)
-- [MintVerifier](https://sepolia.basescan.org/address/0x59B96075Dd61e182f73F181259fB86ee5154F6c9#code)
-- [ActiveTransferVerifier](https://sepolia.basescan.org/address/0xB3D901e4498654e518F7cf386FBA16be62C3d481#code)
+- [Factory](https://sepolia.basescan.org/address/0x04df6DbAe3BAe8bC91ef3b285d0666d36dda24af#code)
+- [PrivacyToken Implementation](https://sepolia.basescan.org/address/0xa025070b46a38d5793F491097A6aae1A6109000c#code)
+- [MintVerifier](https://sepolia.basescan.org/address/0x1C9260008DA7a12dF2DE2E562dC72b877f4B9a4b#code)
+- [ActiveTransferVerifier](https://sepolia.basescan.org/address/0x14834a1b1E67977e4ec9a33fc84e58851E21c4Aa#code)
 
 ## Note on Privacy
 

@@ -1,36 +1,36 @@
 {
   "network": "Base Sepolia",
   "chainId": 84532,
-  "deployedAt": "2025-11-25T06:46:09.381Z",
-  "blockNumber": 34142440,
+  "deployedAt": "2025-11-26T02:48:35.733Z",
+  "blockNumber": 34178513,
   "contracts": {
     "PrivacyTokenFactory": {
-      "address": "0x8303A804fa17f40a4725D1b4d9aF9CB63244289c",
-      "basescan": "https://sepolia.basescan.org/address/0x8303A804fa17f40a4725D1b4d9aF9CB63244289c#code"
+      "address": "0x04df6DbAe3BAe8bC91ef3b285d0666d36dda24af",
+      "basescan": "https://sepolia.basescan.org/address/0x04df6DbAe3BAe8bC91ef3b285d0666d36dda24af#code"
     },
     "PrivacyToken (Implementation)": {
-      "address": "0xB329Dc91f458350a970Fe998e3322Efb08dDA7d1",
-      "basescan": "https://sepolia.basescan.org/address/0xB329Dc91f458350a970Fe998e3322Efb08dDA7d1#code"
+      "address": "0xa025070b46a38d5793F491097A6aae1A6109000c",
+      "basescan": "https://sepolia.basescan.org/address/0xa025070b46a38d5793F491097A6aae1A6109000c#code"
     },
     "MintVerifier": {
-      "address": "0x59B96075Dd61e182f73F181259fB86ee5154F6c9",
-      "basescan": "https://sepolia.basescan.org/address/0x59B96075Dd61e182f73F181259fB86ee5154F6c9#code"
+      "address": "0x1C9260008DA7a12dF2DE2E562dC72b877f4B9a4b",
+      "basescan": "https://sepolia.basescan.org/address/0x1C9260008DA7a12dF2DE2E562dC72b877f4B9a4b#code"
     },
     "MintRolloverVerifier": {
-      "address": "0x1CAEB20665C98D17cCAE542382f4113b02b75ffe",
-      "basescan": "https://sepolia.basescan.org/address/0x1CAEB20665C98D17cCAE542382f4113b02b75ffe#code"
+      "address": "0x9423767D08eF34CEC1F1aD384e2884dd24c68f5B",
+      "basescan": "https://sepolia.basescan.org/address/0x9423767D08eF34CEC1F1aD384e2884dd24c68f5B#code"
     },
     "ActiveTransferVerifier": {
-      "address": "0xB3D901e4498654e518F7cf386FBA16be62C3d481",
-      "basescan": "https://sepolia.basescan.org/address/0xB3D901e4498654e518F7cf386FBA16be62C3d481#code"
+      "address": "0x14834a1b1E67977e4ec9a33fc84e58851E21c4Aa",
+      "basescan": "https://sepolia.basescan.org/address/0x14834a1b1E67977e4ec9a33fc84e58851E21c4Aa#code"
     },
     "FinalizedTransferVerifier": {
-      "address": "0xF878D3edF4F39f6B813cC12A83FcE4725B06Bb47",
-      "basescan": "https://sepolia.basescan.org/address/0xF878D3edF4F39f6B813cC12A83FcE4725B06Bb47#code"
+      "address": "0x1b7c464ed02af392a44CE7881081d1fb1D15b970",
+      "basescan": "https://sepolia.basescan.org/address/0x1b7c464ed02af392a44CE7881081d1fb1D15b970#code"
     },
     "RolloverTransferVerifier": {
-      "address": "0xdBfb58cc0275cBD38dB1e0e0b36E619934f6c0Cb",
-      "basescan": "https://sepolia.basescan.org/address/0xdBfb58cc0275cBD38dB1e0e0b36E619934f6c0Cb#code"
+      "address": "0x4dd4D44f99Afb3AE4F4e8C03BAdA2Ff84E75f9Cb",
+      "basescan": "https://sepolia.basescan.org/address/0x4dd4D44f99Afb3AE4F4e8C03BAdA2Ff84E75f9Cb#code"
     }
   },
   "cryptoParams": {
