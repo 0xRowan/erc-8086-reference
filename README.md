@@ -2,7 +2,7 @@
 
 > A minimal interface for native privacy-preserving fungible tokens on Ethereum
 
-[![ERC Status](https://img.shields.io/badge/ERC-8086-blue)](https://eips.ethereum.org/EIPS/eip-8086)
+[![ERC Status](https://img.shields.io/badge/ERC-8086-blue)](https://ethereum-magicians.org/t/erc-8086-privacy-token/26623)
 [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
 
 ## Overview
