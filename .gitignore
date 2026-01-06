@@ -33,3 +33,5 @@ deployments/localhost/
 
 # Foundry
 broadcast/
+
+local/
