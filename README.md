@@ -3,38 +3,71 @@
 > A minimal interface for native privacy-preserving fungible tokens on Ethereum
 
 [![ERC Status](https://img.shields.io/badge/ERC-8086-blue)](https://ethereum-magicians.org/t/erc-8086-privacy-token/26623)
+[![ERC Status](https://img.shields.io/badge/ERC-8085-green)](https://ethereum-magicians.org/t/erc-8085-dual-mode-fungible-tokens/26592)
 [![License: CC0-1.0](https://img.shields.io/badge/License-CC0_1.0-lightgrey.svg)](https://creativecommons.org/publicdomain/zero/1.0/)
 
 ## Overview
 
-ERC-8086 defines **IZRC20**, a minimal interface standard for native privacy tokens on Ethereum. This standard enables:
+This repository contains **two complementary ERC standards** for privacy-preserving tokens on Ethereum:
 
-- **Wrapper Protocols**: Add privacy to existing ERC-20 tokens (DAI → zDAI → DAI)
-- **Dual-Mode Tokens**: Combine public (ERC-20) and private (ZRC-20) modes in one contract
+| Standard | Name | Description |
+|----------|------|-------------|
+| **ERC-8086** | Privacy Token (IZRC20) | Foundation layer - minimal interface for native privacy tokens |
+| **ERC-8085** | Dual-Mode Token | Application layer - combines ERC-20 and ERC-8086 in one token |
 
 ```
 Ecosystem Stack:
 ┌─────────────────────────────────────┐
 │  Applications (DeFi, DAO, Gaming)   │
 ├─────────────────────────────────────┤
-│  Dual-Mode Tokens (ERC-20 + ZRC-20) │  ← Future privacy-native tokens
+│  ERC-8085: Dual-Mode Token          │  ← Public + Privacy in one token
 │  Wrapper Protocols (ERC-20→ZRC-20)  │  ← Privacy for existing tokens
 ├─────────────────────────────────────┤
-│  IZRC20: Native Privacy Interface   │  ← This standard (foundation)
+│  ERC-8086: IZRC20 Privacy Interface │  ← Foundation layer
 ├─────────────────────────────────────┤
 │  Ethereum L1 / L2s                  │
 └─────────────────────────────────────┘
 ```
 
-## Live Testnet Deployment
+### ERC-8086: The Foundation
 
-The reference implementation is deployed and verified on **Base Sepolia**. Anyone can interact with and verify the contracts.
+ERC-8086 defines **IZRC20**, a minimal interface standard for native privacy tokens. It enables:
+
+- **Wrapper Protocols**: Add privacy to existing ERC-20 tokens (DAI → zDAI → DAI)
+- **Dual-Mode Tokens**: Combine public (ERC-20) and private (ZRC-20) modes in one contract
+
+### ERC-8085: Dual-Mode Token
+
+ERC-8085 builds on ERC-8086 to create tokens that support **both transparent and privacy modes**:
+
+```
+Single Token Contract
+  ↓
+Public Mode (ERC-20) ←→ Privacy Mode (ZK-SNARK)
+  ↓                           ↓
+DeFi/DEX Trading          Private Holdings
+```
+
+**Key Features**:
+- `toPrivacy()` - Convert public tokens to privacy mode
+- `toPublic()` - Convert privacy tokens back to public mode
+- Full ERC-20 compatibility for DeFi integration
+- Unified liquidity (no separate wrapped token)
+
+## Live Testnet Deployments
+
+Both implementations are deployed and verified on **Base Sepolia**. Anyone can interact with and verify the contracts.
 
 ### Try It Now
 
-**Launch App**: [https://testnative.zkprotocol.xyz/](https://testnative.zkprotocol.xyz/)
+| Standard | Demo App |
+|----------|----------|
+| **ERC-8086** (Native Privacy Token) | [testnative.zkprotocol.xyz](https://testnative.zkprotocol.xyz/) |
+| **ERC-8085** (Dual-Mode Token) | [testdmt.zkprotocol.xyz](https://testdmt.zkprotocol.xyz/) |
 
-### Deployed Contracts
+---
+
+### ERC-8086: Native Privacy Token Contracts
 
 | Contract | Address | Basescan |
 |----------|---------|----------|
@@ -45,6 +78,22 @@ The reference implementation is deployed and verified on **Base Sepolia**. Anyon
 | ActiveTransferVerifier | `0x14834a1b1E67977e4ec9a33fc84e58851E21c4Aa` | [View](https://sepolia.basescan.org/address/0x14834a1b1E67977e4ec9a33fc84e58851E21c4Aa#code) |
 | FinalizedTransferVerifier | `0x1b7c464ed02af392a44CE7881081d1fb1D15b970` | [View](https://sepolia.basescan.org/address/0x1b7c464ed02af392a44CE7881081d1fb1D15b970#code) |
 | RolloverTransferVerifier | `0x4dd4D44f99Afb3AE4F4e8C03BAdA2Ff84E75f9Cb` | [View](https://sepolia.basescan.org/address/0x4dd4D44f99Afb3AE4F4e8C03BAdA2Ff84E75f9Cb#code) |
+
+---
+
+### ERC-8085: Dual-Mode Token Contracts
+
+| Contract | Address | Basescan |
+|----------|---------|----------|
+| **DualModeTokenFactory** | `0xf5c16f708777cCb57C3A8887065b4EC02eAf9130` | [View](https://sepolia.basescan.org/address/0xf5c16f708777cCb57C3A8887065b4EC02eAf9130#code) |
+| **DualModeToken (Implementation)** | `0x1EFab166064AaD33fcB6074Ec8bA6302013C965C` | [View](https://sepolia.basescan.org/address/0x1EFab166064AaD33fcB6074Ec8bA6302013C965C#code) |
+| MintVerifier | `0xC655b758f07bAaE8B956c95b055424a5c3B04e79` | [View](https://sepolia.basescan.org/address/0xC655b758f07bAaE8B956c95b055424a5c3B04e79#code) |
+| MintRolloverVerifier | `0x9a6898B2e6C963EA81D17dCB9B0D483B590e168f` | [View](https://sepolia.basescan.org/address/0x9a6898B2e6C963EA81D17dCB9B0D483B590e168f#code) |
+| ActiveTransferVerifier | `0x7159EcAc6d1BB1433922b597fc2887dCA33a3A62` | [View](https://sepolia.basescan.org/address/0x7159EcAc6d1BB1433922b597fc2887dCA33a3A62#code) |
+| FinalizedTransferVerifier | `0x0f9b6F788774671C8c47D8adE9D36E884c96580D` | [View](https://sepolia.basescan.org/address/0x0f9b6F788774671C8c47D8adE9D36E884c96580D#code) |
+| RolloverTransferVerifier | `0x0B22df9887351Ecfb403cfB27056f3A371F3bD92` | [View](https://sepolia.basescan.org/address/0x0B22df9887351Ecfb403cfB27056f3A371F3bD92#code) |
+
+---
 
 **Network**: Base Sepolia (Chain ID: 84532)
 
@@ -115,24 +164,45 @@ Total Capacity: 68.7 billion notes
 erc-8086-reference/
 ├── README.md                           # This file
 ├── contracts/
-│   ├── interfaces/
-│   │   ├── IZRC20.sol                  # Core interface (ERC-8086)
-│   │   └── IVerifier.sol               # Verifier interfaces
-│   └── reference/
-│       ├── PrivacyToken.sol            # Reference implementation
-│       └── PrivacyTokenFactory.sol     # Factory for deploying tokens
+│   ├── erc8086/                        # ERC-8086: Native Privacy Token
+│   │   ├── interfaces/
+│   │   │   ├── IZRC20.sol              # Core privacy token interface
+│   │   │   └── IVerifier.sol           # ZK verifier interfaces
+│   │   └── reference/
+│   │       ├── PrivacyToken.sol        # Privacy token implementation
+│   │       └── PrivacyTokenFactory.sol # Factory for deploying privacy tokens
+│   │
+│   └── erc8085/                        # ERC-8085: Dual-Mode Token
+│       ├── interfaces/
+│       │   └── IDualModeToken.sol      # Dual-mode token interface
+│       └── reference/
+│           ├── PrivacyToken.sol        # Base class (extends ERC-8086)
+│           ├── DualModeToken.sol       # Dual-mode token implementation
+│           └── DualModeTokenFactory.sol # Factory for deploying dual-mode tokens
+│
 ├── deployments/
-│   └── base-sepolia.json               # Deployment addresses & config
+│   ├── erc8086/
+│   │   └── base-sepolia.json           # ERC-8086 deployment addresses
+│   └── erc8085/
+│       └── base-sepolia.json           # ERC-8085 deployment addresses
+│
 ├── docs/
-│   └── erc-8086.md                     # Full ERC specification
+│   ├── erc-8086.md                     # ERC-8086 full specification
+│   └── erc-8085.md                     # ERC-8085 full specification
+│
 └── examples/
     └── interaction.md                  # How to interact with contracts
 ```
 
 ## Links
 
+### ERC-8086 (Native Privacy Token)
 - **EIP Discussion**: [ethereum-magicians.org/t/erc-8086-privacy-token](https://ethereum-magicians.org/t/erc-8086-privacy-token/26623)
 - **Testnet App**: [testnative.zkprotocol.xyz](https://testnative.zkprotocol.xyz/)
+
+### ERC-8085 (Dual-Mode Token)
+- **EIP Discussion**: [ethereum-magicians.org/t/erc-8085-dual-mode-fungible-tokens](https://ethereum-magicians.org/t/erc-8085-dual-mode-fungible-tokens/26592)
+- **Testnet App**: [testdmt.zkprotocol.xyz](https://testdmt.zkprotocol.xyz/)
 
 ## Security Considerations
 

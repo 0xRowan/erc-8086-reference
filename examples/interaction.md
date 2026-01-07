@@ -1,17 +1,24 @@
-# Interacting with ERC-8086 Privacy Tokens
+# Interacting with ERC-8086 and ERC-8085 Tokens
 
-This guide explains how to interact with the deployed ERC-8086 reference implementation on Base Sepolia.
+This guide explains how to interact with the deployed reference implementations on Base Sepolia.
 
 ## Quick Start
 
-The easiest way to interact with the protocol is through the web interface:
+The easiest way to interact with the protocol is through the web interfaces:
 
-**Launch App**: [https://testnative.zkprotocol.xyz/](https://testnative.zkprotocol.xyz/)
+| Standard | Demo App | Description |
+|----------|----------|-------------|
+| **ERC-8086** | [testnative.zkprotocol.xyz](https://testnative.zkprotocol.xyz/) | Native Privacy Token |
+| **ERC-8085** | [testdmt.zkprotocol.xyz](https://testdmt.zkprotocol.xyz/) | Dual-Mode Token (Public + Privacy) |
 
-## Contract Addresses (Base Sepolia)
+---
+
+## Part 1: ERC-8086 (Native Privacy Token)
+
+### Contract Addresses (Base Sepolia)
 
 ```
-Factory:                    0x04df6DbAe3BAe8bC91ef3b285d0666d36dda24af
+Factory:                     0x04df6DbAe3BAe8bC91ef3b285d0666d36dda24af
 PrivacyToken Implementation: 0xa025070b46a38d5793F491097A6aae1A6109000c
 ```
 
@@ -205,8 +212,142 @@ All contracts are verified. Click to view source code:
 
 The web application at [testnative.zkprotocol.xyz](https://testnative.zkprotocol.xyz/) handles all proof generation automatically.
 
+---
+
+## Part 2: ERC-8085 (Dual-Mode Token)
+
+ERC-8085 extends ERC-8086 by adding **public mode (ERC-20)** alongside privacy mode. Users can switch between modes using `toPrivacy()` and `toPublic()`.
+
+### Contract Addresses (Base Sepolia)
+
+```
+Factory:                       0xf5c16f708777cCb57C3A8887065b4EC02eAf9130
+DualModeToken Implementation:  0x1EFab166064AaD33fcB6074Ec8bA6302013C965C
+```
+
+### Reading Dual-Mode Token State
+
+```javascript
+// Dual-Mode Token ABI (simplified)
+const dualModeTokenABI = [
+  // ERC-20 functions
+  'function name() view returns (string)',
+  'function symbol() view returns (string)',
+  'function decimals() view returns (uint8)',
+  'function totalSupply() view returns (uint256)',
+  'function balanceOf(address) view returns (uint256)',
+
+  // ERC-8085 specific
+  'function totalPrivacySupply() view returns (uint256)',
+  'function isNullifierSpent(bytes32) view returns (bool)',
+
+  // Configuration
+  'function MAX_SUPPLY() view returns (uint256)',
+  'function PUBLIC_MINT_PRICE() view returns (uint256)',
+  'function PUBLIC_MINT_AMOUNT() view returns (uint256)',
+
+  // Privacy state (inherited from ERC-8086)
+  'function activeSubtreeRoot() view returns (bytes32)',
+  'function finalizedRoot() view returns (bytes32)',
+  'function state() view returns (uint32, uint32, uint8, uint8, bool)'
+];
+
+async function getDualModeTokenState(tokenAddress) {
+  const token = new ethers.Contract(tokenAddress, dualModeTokenABI, provider);
+
+  const name = await token.name();
+  const symbol = await token.symbol();
+  const totalSupply = await token.totalSupply();
+  const totalPrivacySupply = await token.totalPrivacySupply();
+  const publicSupply = totalSupply - totalPrivacySupply;
+
+  console.log(`Token: ${name} (${symbol})`);
+  console.log('Total Supply:', ethers.formatEther(totalSupply));
+  console.log('  └─ Public Supply:', ethers.formatEther(publicSupply));
+  console.log('  └─ Privacy Supply:', ethers.formatEther(totalPrivacySupply));
+}
+```
+
+### Monitoring Mode Conversions
+
+```javascript
+const dualModeEventABI = [
+  // ERC-8085 mode conversion events
+  'event ConvertToPrivacy(address indexed account, uint256 amount, bytes32 indexed commitment, uint256 timestamp)',
+  'event ConvertToPublic(address indexed initiator, address indexed recipient, uint256 amount, uint256 timestamp)',
+
+  // ERC-20 transfer event (public mode)
+  'event Transfer(address indexed from, address indexed to, uint256 value)',
+
+  // ERC-8086 privacy events (inherited)
+  'event Transaction(bytes32[2] newCommitments, bytes[] encryptedNotes, uint256[2] ephemeralPublicKey, uint256 viewTag)',
+  'event Minted(address indexed minter, bytes32 commitment, bytes encryptedNote, uint32 subtreeIndex, uint32 leafIndex, uint256 timestamp)'
+];
+
+const dualToken = new ethers.Contract(tokenAddress, dualModeEventABI, provider);
+
+// Listen for public → privacy conversions
+dualToken.on('ConvertToPrivacy', (account, amount, commitment, timestamp) => {
+  console.log('Convert to Privacy!');
+  console.log('  Account:', account);
+  console.log('  Amount:', ethers.formatEther(amount));
+  console.log('  New Commitment:', commitment);
+});
+
+// Listen for privacy → public conversions
+dualToken.on('ConvertToPublic', (initiator, recipient, amount, timestamp) => {
+  console.log('Convert to Public!');
+  console.log('  Initiator:', initiator);
+  console.log('  Recipient:', recipient);
+  console.log('  Amount:', ethers.formatEther(amount));
+});
+
+// Listen for standard ERC-20 transfers (public mode)
+dualToken.on('Transfer', (from, to, value) => {
+  console.log('Public Transfer!');
+  console.log('  From:', from);
+  console.log('  To:', to);
+  console.log('  Value:', ethers.formatEther(value));
+});
+```
+
+### Understanding Dual-Mode Operations
+
+| Operation | Function | Description |
+|-----------|----------|-------------|
+| **Public Mint** | `mintPublic(to, amount)` | Mint ERC-20 tokens (requires ETH payment) |
+| **Public Transfer** | `transfer(to, amount)` | Standard ERC-20 transfer |
+| **To Privacy** | `toPrivacy(amount, proofType, proof, encryptedNote)` | Convert public tokens to privacy mode |
+| **Privacy Transfer** | `transfer(proofType, proof, encryptedNotes)` | Privacy-preserving transfer (ZK-SNARK) |
+| **To Public** | `toPublic(recipient, proofType, proof, encryptedNotes)` | Convert privacy tokens back to public |
+
+### Key Differences from ERC-8086
+
+| Feature | ERC-8086 | ERC-8085 |
+|---------|----------|----------|
+| **Entry Point** | Direct privacy mint | Public mint → toPrivacy() |
+| **Public Balance** | None | Yes (ERC-20 balanceOf) |
+| **DeFi Compatible** | No | Yes (public mode) |
+| **Total Supply** | Privacy only | Public + Privacy |
+| **Mode Switching** | N/A | toPrivacy() / toPublic() |
+
+### Verifying Contracts on Basescan
+
+All ERC-8085 contracts are verified:
+
+- [DualModeTokenFactory](https://sepolia.basescan.org/address/0xf5c16f708777cCb57C3A8887065b4EC02eAf9130#code)
+- [DualModeToken Implementation](https://sepolia.basescan.org/address/0x1EFab166064AaD33fcB6074Ec8bA6302013C965C#code)
+
+---
+
 ## Resources
 
-- [ERC-8086 Specification](../docs/erc-8086.md)
-- [Whitepaper](../docs/whitepaper.md)
+### ERC-8086 (Native Privacy Token)
+- [Specification](../docs/erc-8086.md)
 - [Discussion Forum](https://ethereum-magicians.org/t/erc-8086-privacy-token/26623)
+- [Demo App](https://testnative.zkprotocol.xyz/)
+
+### ERC-8085 (Dual-Mode Token)
+- [Specification](../docs/erc-8085.md)
+- [Discussion Forum](https://ethereum-magicians.org/t/erc-8085-dual-mode-fungible-tokens/26592)
+- [Demo App](https://testdmt.zkprotocol.xyz/)
