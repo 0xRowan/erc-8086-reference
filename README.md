@@ -15,6 +15,8 @@ This repository contains **two complementary ERC standards** for privacy-preserv
 | **ERC-8086** | Privacy Token (IZRC20) | Foundation layer - minimal interface for native privacy tokens |
 | **ERC-8085** | Dual-Mode Token | Application layer - combines ERC-20 and ERC-8086 in one token |
 
+> **Important**: ERC-8085 and ERC-8086 are **independent reference implementations**. They share no code dependencies and can be deployed separately. This repository hosts both for convenience, but each standard has its own complete implementation in `contracts/erc8085/` and `contracts/erc8086/`.
+
 ```
 Ecosystem Stack:
 ┌─────────────────────────────────────┐
@@ -164,19 +166,23 @@ Total Capacity: 68.7 billion notes
 erc-8086-reference/
 ├── README.md                           # This file
 ├── contracts/
-│   ├── erc8086/                        # ERC-8086: Native Privacy Token
+│   ├── erc8086/                        # ERC-8086: Native Privacy Token (standalone)
+│   │   ├── README.md                   # ERC-8086 implementation guide
 │   │   ├── interfaces/
 │   │   │   ├── IZRC20.sol              # Core privacy token interface
-│   │   │   └── IVerifier.sol           # ZK verifier interfaces
+│   │   │   └── IVerifier.sol           # ZK verifier interfaces (12/13 signals)
 │   │   └── reference/
 │   │       ├── PrivacyToken.sol        # Privacy token implementation
 │   │       └── PrivacyTokenFactory.sol # Factory for deploying privacy tokens
 │   │
-│   └── erc8085/                        # ERC-8085: Dual-Mode Token
+│   └── erc8085/                        # ERC-8085: Dual-Mode Token (standalone)
+│       ├── README.md                   # ERC-8085 implementation guide
 │       ├── interfaces/
+│       │   ├── IZRC20.sol              # Privacy interface (independent copy)
+│       │   ├── IVerifier.sol           # ZK verifier interfaces (13/14 signals)
 │       │   └── IDualModeToken.sol      # Dual-mode token interface
 │       └── reference/
-│           ├── PrivacyToken.sol        # Base class (extends ERC-8086)
+│           ├── PrivacyToken.sol        # Base privacy layer (abstract)
 │           ├── DualModeToken.sol       # Dual-mode token implementation
 │           └── DualModeTokenFactory.sol # Factory for deploying dual-mode tokens
 │
@@ -193,6 +199,8 @@ erc-8086-reference/
 └── examples/
     └── interaction.md                  # How to interact with contracts
 ```
+
+> **Note**: `erc8085/` and `erc8086/` are **independent implementations** with no shared code. Each has its own interfaces, verifiers, and contracts. The verifier interfaces differ (ERC-8085 has additional `conversionAmount` field).
 
 ## Links
 
